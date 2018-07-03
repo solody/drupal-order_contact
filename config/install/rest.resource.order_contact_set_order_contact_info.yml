@@ -1,0 +1,21 @@
+langcode: zh-hans
+status: true
+dependencies:
+  module:
+    - basic_auth
+    - order_contact
+    - serialization
+    - simple_oauth
+    - user
+id: order_contact_set_order_contact_info
+plugin_id: order_contact_set_order_contact_info
+granularity: resource
+configuration:
+  methods:
+    - POST
+  formats:
+    - json
+  authentication:
+    - basic_auth
+    - oauth2
+    - cookie

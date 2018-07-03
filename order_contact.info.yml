@@ -1,0 +1,12 @@
+name: 'Order Contact'
+type: module
+description: 'My Awesome Module'
+core: 8.x
+package: 'Custom'
+dependencies:
+  - commerce_order
+  - basic_auth
+  - order_contact
+  - serialization
+  - simple_oauth
+  - user

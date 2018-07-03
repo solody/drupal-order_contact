@@ -1,0 +1,90 @@
+<?php
+
+/**
+ * @file
+ * Contains order_contact.module.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\user\RoleInterface;
+
+/**
+ * Implements hook_help().
+ */
+function order_contact_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the order_contact module.
+    case 'help.page.order_contact':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('My Awesome Module') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+
+/**
+ * Implements hook_install().
+ */
+function order_contact_install() {
+  // 为已认证用户添加权限
+  user_role_grant_permissions(RoleInterface::AUTHENTICATED_ID, [
+    'restful post order_contact_set_order_contact_info'
+  ]);
+}
+
+/**
+ * Implements hook_entity_base_field_info().
+ */
+function order_contact_entity_base_field_info(EntityTypeInterface $entity_type) {
+  $fields = [];
+  if ($entity_type->id() == 'commerce_order') {
+
+    $fields['contact_name'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('订单联系人'))
+      ->setDefaultValue('')
+      ->setDisplayOptions('view', [
+        'label' => 'inline',
+        'type' => 'string'
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'string_textfield'
+      ])
+      ->setDisplayConfigurable('view', true)
+      ->setDisplayConfigurable('form', true);
+
+    $fields['contact_phone'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('联系人手机号码'))
+      ->setDefaultValue('')
+      ->setDisplayOptions('view', [
+        'label' => 'inline',
+        'type' => 'string'
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'string_textfield'
+      ])
+      ->setDisplayConfigurable('view', true)
+      ->setDisplayConfigurable('form', true);
+
+    $fields['contact_remark'] = BaseFieldDefinition::create('string_long')
+      ->setLabel(t('联系人备注'))
+      ->setDescription(t('联系人在下单时填写的的备注说明信息。'))
+      ->setSettings([
+        'max_length' => 250,
+        'text_processing' => 0,
+      ])
+      ->setDefaultValue('')
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'string'
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'string_textarea'
+      ]);
+  }
+  return $fields;
+}

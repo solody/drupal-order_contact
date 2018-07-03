@@ -1,0 +1,14 @@
+{
+  "name": "drupal/order_contact",
+  "type": "drupal-module",
+  "description": "My Awesome Module",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/order_contact",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/order_contact",
+    "source": "http://cgit.drupalcode.org/order_contact"
+  },
+  "require": { }
+}
